@@ -32,7 +32,7 @@ document.querySelector('#search').addEventListener('submit', async (event) => {
             descricao: dados.weather[0].description,
             img: dados.weather[0].icon,
             vento: dados.wind.speed,
-            humidade: dados.main.humidity
+            umidade: dados.main.humidity
         })
     } else {
         erro.innerHTML = 'Cidade não encontrada'
@@ -47,9 +47,9 @@ function pegarInfo(dados) {
     document.querySelector('img').setAttribute('src', `http://openweathermap.org/img/wn/${dados.img}@2x.png`)
     document.querySelector('#tempValue').innerHTML = `${dados.temperatura.toFixed(1).toString().replace('.', ',')} <sup>c°</sup>`
     document.querySelector('#tempDescription').innerHTML = dados.descricao
-    document.querySelector('#tempMax').innerHTML = `${dados.tempMax.toFixed(0)} <sup>c°</sup>`
-    document.querySelector('#tempMin').innerHTML = `${dados.tempMin.toFixed(0)} <sup>c°</sup>`
-    document.querySelector('#humididy').innerHTML = `${dados.vento.toFixed(1).toString().replace('.', ',')}%`
-    document.querySelector('#wind').innerHTML = `${dados.humidade} km/h`
+    document.querySelector('#tempMax').innerHTML = `${dados.tempMax.toFixed(1).toString().replace('.', ',')} <sup>c°</sup>`
+    document.querySelector('#tempMin').innerHTML = `${dados.tempMin.toFixed(1).toString().replace('.', ',')} <sup>c°</sup>`
+    document.querySelector('#humididy').innerHTML = `${dados.umidade}%`
+    document.querySelector('#wind').innerHTML = `${dados.vento.toFixed(1).toString().replace('.', ',')} km/h`
 
 }
