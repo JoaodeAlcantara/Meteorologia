@@ -35,6 +35,7 @@ document.querySelector('#search').addEventListener('submit', async (event) => {
             umidade: dados.main.humidity
         })
     } else {
+        displayTemp.style.display = 'none'
         erro.innerHTML = 'Cidade não encontrada'
         erro.style.color = 'red'
         erro.style.textAlign = 'center'
@@ -43,7 +44,7 @@ document.querySelector('#search').addEventListener('submit', async (event) => {
 
 })
 function pegarInfo(dados) {
-    document.querySelector('#title').innerHTML = `${dados.cidade}, ${dados.pais}`
+    document.querySelector('#title').innerHTML = `${dados.cidade} ${dados.pais ?',' + dados.pais : ''}`
     document.querySelector('img').setAttribute('src', `http://openweathermap.org/img/wn/${dados.img}@2x.png`)
     document.querySelector('#tempValue').innerHTML = `${dados.temperatura.toFixed(1).toString().replace('.', ',')} <sup>c°</sup>`
     document.querySelector('#tempDescription').innerHTML = dados.descricao
