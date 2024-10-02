@@ -4,16 +4,6 @@ document.querySelector('#search').addEventListener('submit', async (event) => {
     const displayTemp = document.querySelector('#wheater')
     const cityName = document.querySelector('#cityName').value
 
-
-    if (!cityName) {
-        document.querySelector('#alert').innerHTML = 'Digite o nome da cidade'
-    } else{
-        document.querySelector('#alert').innerHTML = ''
-        if (displayTemp.style.display === 'none' || displayTemp.style.display === '') {
-            displayTemp.style.display = 'block'    
-        }
-    }
-
     const apiKey = 'e74e516394d6f586883b72a1f2c554a1';
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURI(cityName)}&appid=${apiKey}&units=metric&lang=pt_br`;
     const erro = document.querySelector('#alert')
@@ -22,29 +12,32 @@ document.querySelector('#search').addEventListener('submit', async (event) => {
     const dados = await resp.json()
     console.log(dados)
 
-    if (dados.cod === 200) {
-        pegarInfo({
-            cidade: dados.name,
-            pais: dados.sys.country,
-            temperatura: dados.main.temp,
-            tempMax: dados.main.temp_max,
-            tempMin: dados.main.temp_min,
-            descricao: dados.weather[0].description,
-            img: dados.weather[0].icon,
-            vento: dados.wind.speed,
-            umidade: dados.main.humidity
-        })
+    if (!cityName) {
+        document.querySelector('#alert').innerHTML = 'Digite o nome da cidade'
     } else {
-        displayTemp.style.display = 'none'
-        erro.innerHTML = 'Cidade não encontrada'
-        erro.style.color = 'red'
-        erro.style.textAlign = 'center'
+        if (dados.cod === 200) {
+            document.querySelector('#alert').innerHTML = ''
+                displayTemp.style.display = 'block'
+                pegarInfo({
+                    cidade: dados.name,
+                    pais: dados.sys.country,
+                    temperatura: dados.main.temp,
+                    tempMax: dados.main.temp_max,
+                    tempMin: dados.main.temp_min,
+                    descricao: dados.weather[0].description,
+                    img: dados.weather[0].icon,
+                    vento: dados.wind.speed,
+                    umidade: dados.main.humidity
+                })
+        } else {
+            erro.innerHTML = 'Cidade não encontrada'
+        }
     }
 
 
 })
 function pegarInfo(dados) {
-    document.querySelector('#title').innerHTML = `${dados.cidade} ${dados.pais ?',' + dados.pais : ''}`
+    document.querySelector('#title').innerHTML = `${dados.cidade} ${dados.pais ? ',' + dados.pais : ''}`
     document.querySelector('img').setAttribute('src', `http://openweathermap.org/img/wn/${dados.img}@2x.png`)
     document.querySelector('#tempValue').innerHTML = `${dados.temperatura.toFixed(1).toString().replace('.', ',')} <sup>c°</sup>`
     document.querySelector('#tempDescription').innerHTML = dados.descricao

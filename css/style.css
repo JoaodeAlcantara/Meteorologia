@@ -38,6 +38,10 @@ body {
   background-color: transparent;
   cursor: pointer;
 }
+#container #alert{
+  text-align: center;
+  color: red;
+}
 #container #wheater {
   display: none;
   margin-top: 20px;
@@ -105,4 +109,4 @@ body {
 }
 #container #wheater #otherInfos .info #windIcon {
   color: rgb(87, 82, 82);
-}/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map 
